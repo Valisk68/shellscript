@@ -74,4 +74,4 @@ cat <<EOF >> $EMAIL_FILE
 EOF
 
 
-mailx -a "Content-Type: text/html" -s "Disk Utilization Alert" shaikvalims@gmail.com < $EMAIL_FILE
+sendmail -a "Content-Type: text/html" -s "Disk Utilization Alert" shaikvalims@gmail.com < $EMAIL_FILE
