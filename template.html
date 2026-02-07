@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Disk Utilization Alert</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background-color: #ffffff;
+      max-width: 600px;
+      margin: 20px auto;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 20px;
+    }
+    h2 {
+      color: #d9534f;
+      margin-top: 0;
+    }
+    .alert {
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .footer {
+      font-size: 12px;
+      color: #888;
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🚨 Disk Utilization Alert</h2>
+    <div class="alert">
+      The following server(s) have exceeded the disk usage threshold.
+    </div>
+    <table>
+      <tr>
+        <th>Server Name</th>
+        <th>Mount Point</th>
+        <th>Usage</th>
+        <th>Threshold</th>
+      </tr>
+      <tr>
+        <td>server01</td>
+        <td>/var</td>
+        <td>92%</td>
+        <td>85%</td>
+      </tr>
+      <tr>
+        <td>server02</td>
+        <td>/home</td>
+        <td>88%</td>
+        <td>80%</td>
+      </tr>
+    </table>
+    <p>Please take immediate action to free up space or extend storage capacity.</p>
+    <div class="footer">
+      This is an automated message. Do not reply.
+    </div>
+  </div>
+</body>
+</html>
