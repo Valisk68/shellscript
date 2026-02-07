@@ -74,4 +74,8 @@ cat <<EOF >> $EMAIL_FILE
 EOF
 
 
-sendmail -a "Content-Type: text/html" -s "Disk Utilization Alert" shaikvalims@gmail.com < $EMAIL_FILE
+TO="shaikvalims@gmail.com"
+SUBJECT="Disk Utilization Alert"
+BODY="$EMAIL_FILE"
+
+echo -e "Subject: $SUBJECT\n\n$BODY" | msmtp "$TO"
