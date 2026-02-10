@@ -4,7 +4,7 @@ echo "hello world "
 echo "Welcome to DevOps Training"
 TO_ADDRESS="shaikvalims@gmail.com"
 SUBJECT="Disk Utilization Alert"
-EMAIL_BODY="TEST EMAIL FORM VALI"
+EMAIL_BODY="df -h --output=source,pcent,target | tail -n +2"
 
 {
 echo "To: $TO_ADDRESS"
