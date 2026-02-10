@@ -63,11 +63,11 @@ while IFS= read -r line; do
     USAGE=$(echo $line | awk '{print $2}' | tr -d '%')
     MOUNT=$(echo $line | awk '{print $3}')
 
-    if [ "$USAGE" -ge "$THRESHOLD" ]; then
-        COLOR=" style=\"color:red; font-weight:bold;\""
-    else
-        COLOR=""
-    fi
+    # if [ "$USAGE" -ge "$THRESHOLD" ]; then
+    #     COLOR=" style=\"color:red; font-weight:bold;\""
+    # else
+    #     COLOR=""
+    # fi
 
     cat <<ROW >> $EMAIL_FILE
       <tr>
@@ -78,10 +78,20 @@ while IFS= read -r line; do
 ROW
 done <<< "$DISK_USAGE"
 
+# if [ "$USAGE" -ge "$THRESHOLD" ]; then
+#     COLOR=" style=\"color:red; font-weight:bold;\""
+# else
+#     COLOR=""
+# fi
+
 if [ "$USAGE" -ge "$THRESHOLD" ]; then
-    COLOR=" style=\"color:red; font-weight:bold;\""
-else
-    COLOR=""
+    cat <<ROW >> $EMAIL_FILE
+      <tr>
+        <td>$FS</td>
+        <td>${USAGE}%</td>
+        <td>$MOUNT</td>
+      </tr>
+ROW
 fi
 
 cat <<ROW >> $EMAIL_FILE
