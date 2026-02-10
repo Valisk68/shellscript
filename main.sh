@@ -73,9 +73,16 @@ cat <<EOF >> $EMAIL_FILE
 </html>
 EOF
 
+#!/bin/bash
 
 TO="shaikvalims@gmail.com"
 SUBJECT="Disk Utilization Alert"
-BODY="$EMAIL_FILE"
 
-echo -e "Subject: $SUBJECT\n\n$BODY" | msmtp "$TO"
+
+{
+  echo "To: $TO"
+  echo "Subject: $SUBJECT"
+  echo "Content-Type: text/html"
+  echo
+  cat $EMAIL_FILE
+} | msmtp "$TO"
