@@ -69,6 +69,17 @@ while IFS= read -r line; do
     #     COLOR=""
     # fi
 
+    if [ "$USAGE" -ge "$THRESHOLD" ]; then
+    cat <<ROW >> $EMAIL_FILE
+      <tr>
+        <td>$FS</td>
+        <td>${USAGE}%</td>
+        <td>$MOUNT</td>
+      </tr>
+ROW
+fi
+
+
     cat <<ROW >> $EMAIL_FILE
       <tr>
         <td$COLOR>$FS</td>
@@ -84,15 +95,6 @@ done <<< "$DISK_USAGE"
 #     COLOR=""
 # fi
 
-if [ "$USAGE" -ge "$THRESHOLD" ]; then
-    cat <<ROW >> $EMAIL_FILE
-      <tr>
-        <td>$FS</td>
-        <td>${USAGE}%</td>
-        <td>$MOUNT</td>
-      </tr>
-ROW
-fi
 
 cat <<ROW >> $EMAIL_FILE
   <tr>
