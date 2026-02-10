@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Threshold for alert (e.g., 85%)
-THRESHOLD=85
+THRESHOLD=25
 
 # Temporary file for HTML email
 EMAIL_FILE="template.html"
@@ -44,21 +44,51 @@ cat <<EOF > $EMAIL_FILE
 EOF
 
 
-while read -r line; do
+# while read -r line; do
+#     FS=$(echo $line | awk '{print $1}')
+#     USAGE=$(echo $line | awk '{print $2}' | tr -d '%')
+#     MOUNT=$(echo $line | awk '{print $3}')
+
+#     if [ "$USAGE" -ge "$THRESHOLD" ]; then
+#         cat <<ROW >> $EMAIL_FILE
+#       <tr>
+#         <td>$FS</td>
+#         <td>${USAGE}%</td>
+#         <td>$MOUNT</td>
+#       </tr>
+# ROW
+#     fi
+# done <<< "$DISK_USAGE"
+
+while IFS= read -r line; do
     FS=$(echo $line | awk '{print $1}')
     USAGE=$(echo $line | awk '{print $2}' | tr -d '%')
     MOUNT=$(echo $line | awk '{print $3}')
 
-    if [ "$USAGE" -ge "$THRESHOLD" ]; then
-        cat <<ROW >> $EMAIL_FILE
+    # Always print the row
+    cat <<ROW >> $EMAIL_FILE
       <tr>
         <td>$FS</td>
         <td>${USAGE}%</td>
         <td>$MOUNT</td>
       </tr>
 ROW
-    fi
 done <<< "$DISK_USAGE"
+
+if [ "$USAGE" -ge "$THRESHOLD" ]; then
+    COLOR=" style=\"color:red; font-weight:bold;\""
+else
+    COLOR=""
+fi
+
+cat <<ROW >> $EMAIL_FILE
+  <tr>
+    <td$COLOR>$FS</td>
+    <td$COLOR>${USAGE}%</td>
+    <td$COLOR>$MOUNT</td>
+  </tr>
+ROW
+
 
 
 
