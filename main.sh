@@ -43,34 +43,37 @@ cat <<EOF > $EMAIL_FILE
       </tr>
 EOF
 
-
-# while read -r line; do
+# while IFS= read -r line; do
 #     FS=$(echo $line | awk '{print $1}')
 #     USAGE=$(echo $line | awk '{print $2}' | tr -d '%')
 #     MOUNT=$(echo $line | awk '{print $3}')
 
-#     if [ "$USAGE" -ge "$THRESHOLD" ]; then
-#         cat <<ROW >> $EMAIL_FILE
+#     # Always print the row
+#     cat <<ROW >> $EMAIL_FILE
 #       <tr>
 #         <td>$FS</td>
 #         <td>${USAGE}%</td>
 #         <td>$MOUNT</td>
 #       </tr>
 # ROW
-#     fi
-# done <<< "$DISK_USAGE"
+
 
 while IFS= read -r line; do
     FS=$(echo $line | awk '{print $1}')
     USAGE=$(echo $line | awk '{print $2}' | tr -d '%')
     MOUNT=$(echo $line | awk '{print $3}')
 
-    # Always print the row
+    if [ "$USAGE" -ge "$THRESHOLD" ]; then
+        COLOR=" style=\"color:red; font-weight:bold;\""
+    else
+        COLOR=""
+    fi
+
     cat <<ROW >> $EMAIL_FILE
       <tr>
-        <td>$FS</td>
-        <td>${USAGE}%</td>
-        <td>$MOUNT</td>
+        <td$COLOR>$FS</td>
+        <td$COLOR>${USAGE}%</td>
+        <td$COLOR>$MOUNT</td>
       </tr>
 ROW
 done <<< "$DISK_USAGE"
