@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Threshold for alert (e.g., 85%)
-THRESHOLD=25
+THRESHOLD=70
 
 # Temporary file for HTML email
 EMAIL_FILE="template.html"
